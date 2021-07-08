@@ -1,13 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+//fungsi untuk mengecek karakter
 bool cek(char ch, vector<char> range);
+
+//konversi string ke infix
 vector<string> konversiInfix(string, input);
+
+//fungsi untuk menghilangkan spasi
 string hapusSpasi(string str);
-vector<string> konversiPostfix(vecctor<string> infix);
-double operasi(double p, double q, string bagian);
-double tOperasi(vector<string> postfix);
-int cekP(char bagian);
+
 
 int main(){
 
