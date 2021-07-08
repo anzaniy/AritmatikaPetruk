@@ -3,4 +3,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Stack{
+private:
+    char A[5];
+    int Size;
 
+public:
+    int top;
+    Stack(){
+
+        top=-1;
+        Size=sizeof(A)/sizeof(char);
+    }
+    bool IsFull(){
+
+        if(top==Size-1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    bool IsEmpty(){
+
+        if(top==-1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
