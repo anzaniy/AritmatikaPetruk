@@ -2,92 +2,97 @@
 using namespace std;
 
 class stack{
-	public:
-		int *tumpukan;
-		int ukuran;
-		int top;
-		void insert(int i);
-		void take();
-		void clear();
-		void find(int i);
-		void display();
+public:
+	int *tumpukan;
+	int ukuran;
+	int top;
+	void insert(int i);
+	void take();
+	void clear();
+	void find(int i);
+	void display();
 		
-		stack(int i){
-			ukuran=1;
-			tumpukan=new int[ukuran];
-			top=0;
-		}
-		private:
-			int isempty();
-			int fully();
+	stack(int i){
+		ukuran=1;
+		tumpukan=new int[ukuran];
+		top=0;
+	}
+private:
+	int isempty();
+	int fully();
 };
-		int stack::isempty(){
-			if(top<=0)
-			return 1;
-			else
-			return 0;
+
+int stack::isempty(){
+	if(top<=0)
+	return 1;
+	else
+	return 0;
+	}
+				
+int stack::fully(){
+	if(top>=ukuran)
+	return 1;
+	else
+	return 0;
+	}
+
+void stack::insert(int i){
+	if(fully()==1){
+		cout <<"tumpukan penuh"<<endl;
 		}
+		else {
+			cout <<" nilai "<<i<<" masuk tumpukan"<<endl;
+			tumpukan[top++]=i;
+		}
+	}
 		
-		int stack::fully(){
-			if(top>=ukuran)
-			return 1;
-			else
-			return 0;
+	void stack::find(int i){
+		int temp=0;
+		int hasil=0;
+		while(temp<top){
+		if(i==tumpukan[temp]){
+			hasil=1;
+			break;
+			}
+			temp++;
 		}
-	void stack::insert(int i){
-			if(fully()==1){
-				cout <<"tumpukan penuh"<<endl;
-			}
-			else {
-				cout <<" nilai "<<i<<" masuk tumpukan"<<endl;
-				tumpukan[top++]=i;
-			}
+		if(hasil==1){
+			cout <<"Nilai "<<i<<" ditemukan ditumpukan ke "<<(temp+1)<<endl;
 		}
-		
-		void stack::find(int i){
-			int temp=0;
-			int hasil=0;
-			while(temp<top){
-				if(i==tumpukan[temp]){
-					hasil=1;
-					break;
-				}
-				temp++;
-			}
-			if(hasil==1){
-				cout <<"Nilai "<<i<<" ditemukan ditumpukan ke "<<(temp+1)<<endl;
-			}
-			else{
-				cout<<"tumpukan tidak ada"<<endl;
-			}
+		else{
+			cout<<"tumpukan tidak ada"<<endl;
 		}
-		void stack::take(){
-			if(isempty()==1){
-				cout<<"kosong"<<endl;
-			}
-			else{
-				int pop=tumpukan[--top];
-				cout<<"nilai "<<pop<<" Keluar tumpukan"<<endl;
-			}
+	}
+	
+	void stack::take(){
+		if(isempty()==1){
+			cout<<"kosong"<<endl;
 		}
-		void stack::clear(){
-			cout<<"stack telah dikosongkan"<<endl;
-			top=0;
-			display();
+		else{
+			int pop=tumpukan[--top];
+			cout<<"nilai "<<pop<<" Keluar tumpukan"<<endl;
 		}
-		void stack::display(){
-			if(isempty()==0){
-				cout<<"isi tumpukan :"<<endl;
-				int x=top;
-				while(x>0){
-					cout<<"tumpukan ke ["<<(x)<<"] :"<<tumpukan[x-1]<<endl;
-					x--;
-				}
-			}else
-			{
-				cout<<"tumpukan kosong"<<endl;
+	}
+	
+	void stack::clear(){
+		cout<<"stack telah dikosongkan"<<endl;
+		top=0;
+		display();
+	}
+	
+	void stack::display(){
+		if(isempty()==0){
+			cout<<"isi tumpukan :"<<endl;
+			int x=top;
+			while(x>0){
+				cout<<"tumpukan ke ["<<(x)<<"] :"<<tumpukan[x-1]<<endl;
+				x--;
 			}
 		}
+		else{
+			cout<<"tumpukan kosong"<<endl;
+		}
+	}
 
 int main(){
 
