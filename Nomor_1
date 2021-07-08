@@ -12,6 +12,15 @@ string hapusSpasi(string str);
 
 
 int main(){
+vector<string> kInfix;
+
+string inputan; getline(cin, inputan);
+
+kinfix = konversiInfix(hapusSpasi(inputan));
+vector<string>::iterator it = kInfix.begin();
+
+//print
+cout << "Print : ";
 
 return 0;
 }
