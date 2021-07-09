@@ -12,12 +12,11 @@ int OrNot(char a){
 
 int Priority(char b){
     if (b == '%')
-	return 3;
+    return 3;
     else if (b == '/' || b == '*')
     return 2;
     else if (b == '+' || b == '-')
     return 1;
-    return INT8_MAX;
 }
 
 string InfixToPostfix(string expression){
