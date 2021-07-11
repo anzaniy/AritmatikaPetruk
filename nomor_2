@@ -5,13 +5,180 @@
 
 using namespace std;
 
-char stk[MAX];
-int top = -1;
+char stack[MAX];
+int top=-1;
 
 bool IsFull(){
-    return top == MAX - 1;
+    return top==MAX -1;
 }
 
 bool IsEmpty(){
-    return top == -1;
+    return top==-1;
+}
+
+void Push(char X)
+{
+    if(!IsFull()){
+        stack[++top] = X;
+    }
+}
+
+char Pop(){
+    char C;
+    if(!IsEmpty()){
+        C=stack[top];
+        stack[top] = '\0';
+        top--;
+        return(C);
+    }return 0;
+}
+
+int Priority (char OPERASI){
+    if(OPERASI == '+' || OPERASI =='-'){
+        return(1);
+    }
+ 
+    if(OPERASI == '*' || OPERASI =='/' || OPERASI == '%'){
+        return(2);
+    }return 0;
+}
+
+string Postfix(vector<string> inf){
+    vector<string> postfix;
+    string postfixData, data;
+    int i = 0;
+
+    char cNum[] = "0123456789";
+    char cSym[] = "()+-/%*";
+
+    for(auto sprtd : inf){
+        char chr[strlen(sprtd.c_str())];
+        strcpy(chr, sprtd.c_str());
+
+        if(strspn(chr , cNum)){
+            data += sprtd;
+            postfix.push_back(data);
+            data = "";
+        }
+		else if(chr[0] == '('){
+            Push(chr[0]);
+        }
+		else if(chr[0] == ')'){
+            while(stack[top] != '('){
+                data = Pop();
+                postfix.push_back(data);
+                data = "";
+            }Pop();
+        }
+		else{
+            bool skip = false;
+
+            if((unsigned)i != inf.size() && chr[0] == '-'){
+                char nextChr[strlen(inf[i + 1].c_str())];
+                strcpy(nextChr, inf[i + 1].c_str());
+
+                if(i > 0){
+                    char prevChr[strlen(inf[i - 1].c_str())];
+                    strcpy(prevChr, inf[i - 1].c_str());
+                    
+                    if(strspn(prevChr, cSym)){
+                        data = sprtd;
+                        skip = true;
+                    }
+                }
+				else if(strspn(nextChr, cNum)){
+                    data = sprtd;
+                    skip = true;
+                }
+            }
+
+            if(top == -1 && !skip){
+                Push(chr[0]);
+            }
+			else if(Priority(chr[0]) <= Priority(stack[top]) && !skip){
+                data = Pop();
+                postfix.push_back(data);
+            
+                while(Priority(stack[top]) == Priority(chr[0])){
+                    data = Pop();
+                    postfix.push_back(data);
+
+                    if(top < 0){
+                        break;
+                    }
+                }
+
+            data = "";
+            Push(chr[0]);
+            }
+			else if(Priority(chr[0]) > Priority(stack[top]) && !skip){
+                Push(chr[0]);
+            }
+        }i++;
+    }
+
+    while(top != -1){
+        data = Pop();
+        postfix.push_back(data);
+    }i = 0;
+
+    for(auto x : postfix){
+        postfixData += x;
+        
+        if((unsigned)i != postfix.size()){
+            postfixData += " ";
+        }i++;
+    }return postfixData;
+}
+
+vector<string> Separating(string INPUT){
+    vector<string> sprtd;
+    string data;
+    bool isNumEnd = false;
+    int i = 0;
+
+    char cNum[] = "0123456789";
+    char cSym[] = "(+-/%*";
+    char chr[1];
+    
+    while(INPUT[i] != '\0'){
+        chr[0] =INPUT[i];
+
+        if(strspn(chr, cNum) && chr[0] != ' '){
+            data +=INPUT[i];
+            isNumEnd = true;
+
+            if((unsigned)i == strlen(INPUT.c_str()) - 1){
+                sprtd.push_back(data);
+            }
+        }
+		else if(chr[0] != ' '){
+            if(isNumEnd){
+                sprtd.push_back(data);
+                isNumEnd = false;
+            }
+
+            data = INPUT[i];
+            sprtd.push_back(data);
+
+            data = "";
+
+            if(i > 0){
+                chr[0] = INPUT[i - 1];
+
+                if(INPUT[i] != '(' && strspn(chr, cSym)){
+                    sprtd.push_back("1");
+                    sprtd.push_back("*");
+                }
+            }
+        }i++;
+    }
+    
+    return sprtd;
+}
+
+int main(){
+    string input;
+    getline(cin, input); 
+    cout << Postfix(Separating(input)) << endl;
 }
