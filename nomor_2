@@ -180,5 +180,5 @@ vector<string> Separating(string INPUT){
 int main(){
     string input;
     getline(cin, input); 
-    cout << Postfix(Separating(input)) << endl;
+    cout << "Print : " << Postfix(Separating(input)) << endl;
 }
