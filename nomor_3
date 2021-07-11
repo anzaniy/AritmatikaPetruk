@@ -30,3 +30,139 @@ double applyOpr(double satu, double dua, char opr){
         }
     return 0;
 }
+double insertOperator(double p, double q, char masuk){
+    
+    switch(masuk){
+        case '*': return p * q;    case '/': return p / q; 
+		case '+': return p + q;    case '-': return p - q;
+        }
+        return 0;
+}
+
+void hitung(string nilai){
+    stack<double> basis;
+    stack<char> hitungan;
+
+    for(i=0; i<nilai.length(); i++){
+        if(isdigit(nilai[i])){
+            int mutu=0;
+            while(i<nilai.length() && isdigit(nilai[i])){
+                mutu = (mutu*10) + (nilai[i] - '0');
+                i++;
+            }
+            i--;
+            basis.push(mutu);
+        }
+            else if(nilai[i] == '(')
+                hitungan.push(nilai[i]);
+            else if(nilai[i] == ')'){
+                while(!hitungan.empty() && hitungan.top() != '('){
+                    if(hitungan.top() == '%'){
+                        int first = basis.top(); basis.pop();
+                        int second  = basis.top(); basis.pop();
+                        hitungan.pop();
+                        basis.push(second %first);
+                        
+                    } 
+                    else
+                         {
+                        double first = basis.top(); basis.pop();
+                        double second  = basis.top(); basis.pop();
+                        char masuk = hitungan.top(); hitungan.pop();
+                        basis.push(insertOperator(second, first, masuk));
+                    }
+                }
+                
+                if(!hitungan.empty())
+                
+                    hitungan.pop();
+                    
+            } 
+            else 
+                {
+                if(nilai[i] == '-'){
+                    if(i==0){
+                        if(isdigit(nilai[i+1])){
+                            i++;
+                            int mutu=0;
+                            while(i<nilai.length() && isdigit(nilai[i])){
+                               mutu = (mutu*10) + (nilai[i] - '0');
+                                i++;
+                            }
+                            i--;
+                            basis.push(mutu*-1);
+                        } else {
+                            basis.push(-1);
+                            hitungan.push('*');
+                        }
+                        
+                    } 
+                    else 
+                        {
+                        while(!hitungan.empty() && parse(hitungan.top()) >= parse(nilai[i]) && !Symbol(nilai[i-1])){
+                            if(hitungan.top() == '%'){
+                                int first = basis.top(); basis.pop();
+                                int second  = basis.top(); basis.pop();
+                                hitungan.pop();
+                                basis.push(second %first);
+                            
+                            } 
+                            else 
+                                {
+                                double first = basis.top(); basis.pop();
+                                double second  = basis.top(); basis.pop();
+                                char masuk = hitungan.top(); hitungan.pop();
+                                basis.push(insertOperator(second, first, masuk));
+                            }
+                        }
+                        if((isdigit(nilai[i+1]) || nilai[i+1]=='(') && (isdigit(nilai[i-1]) || nilai[i-1]==')'))
+                            hitungan.push(nilai[i]);
+                        
+                        else
+                            {
+                            basis.push(-1);
+                            hitungan.push('*');
+                        }
+                    } 
+                    
+                } 
+                else 
+                    {
+                    while(!hitungan.empty() && parse(hitungan.top()) >= parse(nilai[i])){
+                        if(hitungan.top() == '%'){
+                            int first = basis.top(); basis.pop();
+                            int second  = basis.top(); basis.pop();
+                            hitungan.pop();
+                            basis.push(second %first);
+                        } 
+                        else 
+                            {
+                            double first = basis.top(); basis.pop();
+                            double second  = basis.top(); basis.pop();
+                            char masuk = hitungan.top(); hitungan.pop();
+                            basis.push(insertOperator(second, first, masuk));
+                        }
+                    }
+                    hitungan.push(nilai[i]);
+                }
+            }
+        }
+        
+        while(!hitungan.empty()){
+            if(hitungan.top() == '%'){
+                int first = basis.top(); basis.pop();
+                int second  = basis.top(); basis.pop();
+                hitungan.pop();
+                basis.push(second %first);
+         
+            } 
+            else 
+                {
+                double first = basis.top(); basis.pop();
+                double second  = basis.top(); basis.pop();
+                char masuk = hitungan.top(); hitungan.pop();
+                basis.push(insertOperator(second, first, masuk));
+            }
+        }
+        cout << basis.top() << endl;
+    }
