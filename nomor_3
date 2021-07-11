@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+long unsigned int i;
+
+bool Symbol(char OPERASI){
+    if(OPERASI=='*' || OPERASI=='/' || OPERASI=='+' || OPERASI=='-' || OPERASI=='%'){
+        return true; 
+    } else {    
+        return false; 
+    }
+}
+
+int parse(char OPERASI){ 
+    if(OPERASI=='+' || OPERASI=='-'){ 
+        return 1; 
+    }
+    if(OPERASI=='*' || OPERASI=='/' ||OPERASI=='%'){ 
+        return 2; 
+    }return 0;
+}
