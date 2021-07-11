@@ -166,3 +166,17 @@ void hitung(string nilai){
         }
         cout << basis.top() << endl;
     }
+
+int main(){
+    string ekspresi; getline(cin,ekspresi);
+    string baru_ekspresi="";
+    for(i=0;i<ekspresi.length();i++){
+        if(ekspresi[i]==' ')
+            continue;
+        else
+            baru_ekspresi+=ekspresi[i];
+    }
+    hitung(baru_ekspresi);
+
+    return 0;
+}
