@@ -1,1 +1,17 @@
+#include <iostream>
+#include <cstring>
+#include <vector>
+#define MAX 20
 
+using namespace std;
+
+char stk[MAX];
+int top = -1;
+
+bool IsFull(){
+    return top == MAX - 1;
+}
+
+bool IsEmpty(){
+    return top == -1;
+}
