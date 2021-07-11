@@ -22,6 +22,8 @@ int Priority(char b){
 string InfixToPostfix(string expression){
     string output;
     stack<char> Stack;
+    
+    cout << "Print : ";
     for (int c=0; c<expression.length(); c++){
     	
         char character = expression[c];
