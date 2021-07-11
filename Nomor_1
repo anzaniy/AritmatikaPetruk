@@ -1,26 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//fungsi untuk mengecek karakter
-bool cek(char ch, vector<char> range);
+int main (){
+    string kalimat;
+    getline(cin,kalimat);
+    int batas = kalimat.length();
+    cout<<"Print : ";
 
-//konversi string ke infix
-vector<string> konversiInfix(string, input);
-
-//fungsi untuk menghilangkan spasi
-string hapusSpasi(string str);
-
-
-int main(){
-vector<string> kInfix;
-
-string inputan; getline(cin, inputan);
-
-kinfix = konversiInfix(hapusSpasi(inputan));
-vector<string>::iterator it = kInfix.begin();
-
-//print
-cout << "Print : ";
-
-return 0;
+    
+    for(int cekOperator = 0; cekOperator < batas; cekOperator++){
+        if(kalimat[cekOperator] == '-' && (kalimat[cekOperator-1] == '+' || kalimat[cekOperator-1] == '-' ||kalimat[cekOperator-1] == '*' || kalimat[cekOperator-1] == '/'|| kalimat[cekOperator-1] == '%' )){
+            cout << "-1 * ";
+        }
+        else if (kalimat[cekOperator] == '-' && (kalimat[cekOperator-1] >= '0'|| kalimat[cekOperator-2] >= '0')){
+            cout << " " << kalimat[cekOperator] << " ";
+        } 
+        else if (kalimat[cekOperator] == '-' && kalimat[cekOperator+1] >= '0'){
+            cout << kalimat[cekOperator];
+        }
+        else if (kalimat[cekOperator-1] >= '0' && kalimat[cekOperator] == '-' ){
+            cout << " " << kalimat[cekOperator] << " ";
+        }
+        else if (kalimat[cekOperator] == '-' && kalimat[cekOperator+1] == '(' ){ 
+            cout << "-1 * ";
+        }
+        else if (kalimat[cekOperator] >= '0'){
+            cout << kalimat[cekOperator];
+        }
+        else if (kalimat[cekOperator] == '('){
+            cout << kalimat[cekOperator] << " ";
+        }
+        else if (kalimat[cekOperator] == ')'){
+            cout << " " << kalimat[cekOperator];
+        }
+        else if(kalimat[cekOperator] == '-' && ( kalimat[cekOperator-1] == '*' || kalimat[cekOperator-1] == '+' || kalimat[cekOperator-1] == '-' || kalimat[cekOperator-1] == '/'|| kalimat[cekOperator-1] == '%' )){
+            cout << "-1 * ";
+        }
+        else if (kalimat[cekOperator] == '-' || kalimat[cekOperator] == '+' || kalimat[cekOperator] == '*' || kalimat[cekOperator] == '/' ||kalimat[cekOperator] == '%') {
+            cout << " " << kalimat[cekOperator] << " ";
+        }
+	}
+    return 0;
 }
