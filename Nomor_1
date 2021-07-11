@@ -13,3 +13,45 @@ int main(){
     for(long unsigned int looping=0;looping<kata.length(); looping++){
         if(kata[looping] == ' ')
             continue;
+ else if(isdigit(kata[looping])){ 
+            while(looping<kata.length() && isdigit(kata[looping])){
+                parsingInfix.push_back(kata[looping]);
+  //              looping = q;
+                looping++;
+            }
+            looping--;
+        }
+        // tanda -
+        else if(kata[looping] == '-'){
+            parsingInfix.push_back(kata[looping]);
+            if(looping==0){
+                if(isdigit(kata[looping+1])){
+                    looping++;
+                    while(looping<kata.length() && isdigit(kata[looping])){
+                        parsingInfix.push_back(kata[looping]);
+                        looping++;
+                    }
+                    
+                    looping--;
+                    
+                } else {
+                    //tanda 1, ,*
+                    parsingInfix.push_back('1');parsingInfix.push_back(' ');parsingInfix.push_back('*');
+                }
+            } else {
+                if(!isdigit(kata[looping-1]) && kata[looping+1] != ' '){
+                    parsingInfix.push_back('1');parsingInfix.push_back(' ');parsingInfix.push_back('*');
+                } 
+                else {
+                }
+            }
+        } else
+            parsingInfix.push_back(kata[looping]);
+        parsingInfix.push_back(' ');
+    }
+    // mulai print
+    cout <<"Print : ";
+    for(auto j:parsingInfix)
+        cout << j;
+    return 0;
+}
