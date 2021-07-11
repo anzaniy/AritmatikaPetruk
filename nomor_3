@@ -20,3 +20,13 @@ int parse(char OPERASI){
         return 2; 
     }return 0;
 }
+
+double applyOpr(double satu, double dua, char opr){
+    switch(opr){
+        case '*': return satu * dua;    
+		case '/': return satu / dua; 
+		case '+': return satu + dua; 
+		case '-': return satu - dua;
+        }
+    return 0;
+}
