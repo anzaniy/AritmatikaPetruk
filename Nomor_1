@@ -1,19 +1,15 @@
-include <vector>  // no 1
-#include <iostream>
-#include <ctype.h>
+#include<iostream>
+#include<vector>
+#include<string>
 using namespace std;
 
-int main() {
-    string x; getline(cin,x);
-    vector<char> ekspresi;
+int main(){
+//   long int q;
+    string kata;
+    getline(cin,kata);
+    vector<char> parsingInfix;
     
-    for(long unsigned int i=0; i<x.length(); i++){
-        if(x[i] == ' ')
+    //pake long unsigned, klo gk, ntr error
+    for(long unsigned int looping=0;looping<kata.length(); looping++){
+        if(kata[looping] == ' ')
             continue;
-        else if(isdigit(x[i])){ 
-            while(i<x.length() && isdigit(x[i])){
-                ekspresi.push_back(x[i]);
-                i++;
-            }
-            i--;
-        }
